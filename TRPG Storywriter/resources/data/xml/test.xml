@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns4:model xmlns="http://www.closetmonster.games/trpg/storywriter/xml/locations" xmlns:ns2="http://www.closetmonster.games/trpg/storywriter/xml/routes" xmlns:ns3="http://www.closetmonster.games/trpg/storywriter/xml/items" xmlns:ns4="http://www.closetmonster.games/trpg/storywriter/xml/model">
+    <locations>
+        <location id="location-0">
+            <name>Lonely Mountain</name>
+            <description>You are at the top of a tall mountain. An enormous door stands before you leading into the mountain itself.</description>
+        </location>
+        <location id="location-1">
+            <name>Dragon's Lair</name>
+            <description>You are inside a dragon's lair. The door that leads outside has locked behind you--looks like you will need a key to get out!
+
+Luckily, you spot one lying near your feet.</description>
+            <items>item-0 item-1</items>
+        </location>
+    </locations>
+    <ns2:routes>
+        <ns2:route id="route-0">
+            <ns2:fromLocationId>location-0</ns2:fromLocationId>
+            <ns2:direction>North</ns2:direction>
+            <ns2:toLocationId>location-1</ns2:toLocationId>
+            <ns2:lock locked="false">
+                <ns2:requiredItem itemConsumed="false">
+                    <ns2:itemId xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+                </ns2:requiredItem>
+            </ns2:lock>
+        </ns2:route>
+        <ns2:route id="route-1">
+            <ns2:fromLocationId>location-1</ns2:fromLocationId>
+            <ns2:direction>South</ns2:direction>
+            <ns2:toLocationId>location-0</ns2:toLocationId>
+            <ns2:lock locked="true">
+                <ns2:requiredItem itemConsumed="false">
+                    <ns2:itemId>item-1</ns2:itemId>
+                </ns2:requiredItem>
+            </ns2:lock>
+        </ns2:route>
+    </ns2:routes>
+    <ns3:items>
+        <ns3:item id="item-0">
+            <ns3:name>Dragon's Egg</ns3:name>
+            <ns3:description>It's a dragon's egg. The egg is as hard as stone but hot to the touch. This must be what it feels like to touch the side of an active volcano....</ns3:description>
+        </ns3:item>
+        <ns3:item id="item-1">
+            <ns3:name>Skull Key</ns3:name>
+            <ns3:description>This key open's the door leading out of the dragon's lair.</ns3:description>
+        </ns3:item>
+    </ns3:items>
+</ns4:model>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.closetmonster.games/trpg/storywriter/xml/routes"
+	xmlns:rte="http://www.closetmonster.games/trpg/storywriter/xml/routes"
+	elementFormDefault="qualified">
+
+	<xsd:element name="routes" type="rte:routesType" />
+
+	<xsd:complexType name="routesType">
+		<xsd:sequence>
+			<xsd:element name="route" type="rte:routeType" maxOccurs='2147483647' />
+		</xsd:sequence>
+	</xsd:complexType>
+
+	<xsd:complexType name="routeType">
+		<xsd:sequence>
+			<xsd:element name="fromLocationId" type="xsd:IDREF"
+				nillable='true' />
+			<xsd:element name="direction" type="rte:directionType"
+				nillable='true' />
+			<xsd:element name="toLocationId" type="xsd:IDREF"
+				nillable='true' />
+			<xsd:element name="lock" type="rte:lockType" minOccurs='0' />
+		</xsd:sequence>
+		<xsd:attribute name="id" type="xsd:ID" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="lockType">
+		<xsd:sequence>
+			<xsd:element name="requiredItem" type="rte:requiredItemType"
+				nillable='true' />
+		</xsd:sequence>
+		<xsd:attribute name="locked" type="xsd:boolean" use="required" />
+	</xsd:complexType>
+
+	<xsd:complexType name="requiredItemType">
+		<xsd:sequence>
+			<xsd:element name="itemId" type="xsd:IDREF" nillable='true' />
+		</xsd:sequence>
+		<xsd:attribute name="itemConsumed" type="xsd:boolean"
+			use="required" />
+	</xsd:complexType>
+
+	<xsd:simpleType name="directionType">
+		<xsd:restriction base="xsd:string">
+			<xsd:enumeration value="North" />
+			<xsd:enumeration value="Northwest" />
+			<xsd:enumeration value="West" />
+			<xsd:enumeration value="Southwest" />
+			<xsd:enumeration value="South" />
+			<xsd:enumeration value="Southeast" />
+			<xsd:enumeration value="East" />
+			<xsd:enumeration value="Northeast" />
+		</xsd:restriction>
+	</xsd:simpleType>
+
+</xsd:schema>

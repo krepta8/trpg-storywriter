@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<SplitPane dividerPositions="0.25, 0.75" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="games.closetmonster.trpg.storywriter.RoutesController">
+   <items>
+      <AnchorPane prefHeight="401.0" prefWidth="157.0">
+         <children>
+            <VBox layoutY="14.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="%routes.label.text.routes" textAlignment="CENTER" wrapText="false">
+                     <font>
+                        <Font size="18.0" fx:id="x11" />
+                     </font>
+                     <textFill>
+                        <Color blue="0.624" green="0.624" red="0.624" fx:id="x21" />
+                     </textFill>
+                     <VBox.margin>
+                        <Insets left="14.0" top="14.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ListView fx:id="routesListView" prefHeight="320.0" prefWidth="157.0" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </ListView>
+                  <ButtonBar buttonMinWidth="60.0" prefHeight="40.0" prefWidth="157.0">
+                     <buttons>
+                        <Button mnemonicParsing="false" onAction="#newRoute" text="%routes.button.text.new" />
+                        <Button layoutX="92.0" layoutY="18.0" mnemonicParsing="false" onAction="#deleteRoute" text="%routes.button.text.delete" />
+                     </buttons>
+                     <VBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </VBox.margin>
+                  </ButtonBar>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <ScrollPane fx:id="routeEditPane" prefHeight="-1.0" prefWidth="-1.0">
+         <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="401.0" prefWidth="314.0">
+               <children>
+                  <Label alignment="CENTER" font="$x11" layoutX="14.0" layoutY="14.0" style="&#10;" text="%routes.label.text.edit" textAlignment="CENTER" textFill="$x21" wrapText="false" />
+                  <GridPane hgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                     <children>
+                        <FlowPane alignment="CENTER_LEFT" hgap="5.0" GridPane.columnIndex="4">
+                           <children>
+                              <Label text="%routes.label.text.id" />
+                              <Label fx:id="routeIdLabel" text="0" />
+                           </children>
+                        </FlowPane>
+                        <Label text="%routes.label.text.from" GridPane.rowIndex="1" />
+                        <ComboBox fx:id="fromLocationComboBox" onAction="#onActionFromLocation" prefWidth="150.0" promptText="%routes.combobox.prompt.from" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
+                        <Label text="%routes.label.text.direction" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="directionComboBox" onAction="#onActionDirection" prefWidth="150.0" promptText="%routes.combobox.prompt.direction" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                        <CheckBox fx:id="bidirectionalCheckBox" disable="true" mnemonicParsing="false" onAction="#onActionBidirectional" selected="true" text="%routes.checkbox.text.bidirectional" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                        <Label layoutX="20.0" layoutY="70.0" text="%routes.label.text.to" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="toLocationComboBox" onAction="#onActionToLocation" prefWidth="150.0" promptText="%routes.combobox.prompt.to" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.rowIndex="3" />
+                        <CheckBox fx:id="lockedCheckBox" mnemonicParsing="false" onAction="#onActionLocked" text="%routes.checkbox.text.locked" GridPane.columnSpan="2147483647" GridPane.rowIndex="5" />
+                        <Label text="%routes.label.text.item" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="requiredItemComboBox" onAction="#onActionRequiredItem" prefWidth="150.0" promptText="%routes.combobox.prompt.item" GridPane.columnIndex="2" GridPane.columnSpan="2147483647" GridPane.rowIndex="6" />
+                        <CheckBox fx:id="itemConsumedCheckBox" mnemonicParsing="false" onAction="#onActionItemConsumed" text="%routes.checkbox.text.consume" GridPane.columnSpan="2147483647" GridPane.rowIndex="7" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </GridPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+      <AnchorPane fx:id="routeDetailsPane" prefHeight="401.0" prefWidth="157.0">
+         <children>
+            <Label alignment="CENTER" font="$x11" layoutX="14.0" layoutY="14.0" style="&#10;" text="%routes.label.text.details" textAlignment="CENTER" textFill="$x21" wrapText="false" />
+         </children>
+      </AnchorPane>
+   </items>
+</SplitPane>

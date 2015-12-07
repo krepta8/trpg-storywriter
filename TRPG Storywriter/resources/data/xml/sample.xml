@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mdl:model xmlns:mdl="http://www.closetmonster.games/trpg/storywriter/xml/model"
+	xmlns:loc="http://www.closetmonster.games/trpg/storywriter/xml/locations"
+	xmlns:rte="http://www.closetmonster.games/trpg/storywriter/xml/routes"
+	xmlns:itm="http://www.closetmonster.games/trpg/storywriter/xml/items"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.closetmonster.games/trpg/storywriter/xml/model ../../../src/games/closetmonster/trpg/storywriter/xml/model.xsd ">
+	<loc:locations>
+		<loc:location id="location-0">
+			<loc:name>Hello, world!</loc:name>
+			<loc:description>There is an unlocked door to the north.</loc:description>
+		</loc:location>
+		<loc:location id="location-1">
+			<loc:name>Locked Room</loc:name>
+			<loc:description>The door behind you is locked from this side. Did you get the key from this room?</loc:description>
+			<loc:items>item-0</loc:items>
+		</loc:location>
+	</loc:locations>
+	<rte:routes>
+		<rte:route id="route-0">
+			<rte:fromLocationId>location-0</rte:fromLocationId>
+			<rte:direction>North</rte:direction>
+			<rte:toLocationId>location-1</rte:toLocationId>
+		</rte:route>
+		<rte:route id="route-1">
+			<rte:fromLocationId>location-1</rte:fromLocationId>
+			<rte:direction>South</rte:direction>
+			<rte:toLocationId>location-0</rte:toLocationId>
+			<rte:lock locked="true">
+				<rte:requiredItem itemConsumed="false">
+					<rte:itemId>item-0</rte:itemId>
+				</rte:requiredItem>
+			</rte:lock>
+		</rte:route>
+	</rte:routes>
+	<itm:items>
+		<itm:item id="item-0">
+			<itm:name>Key</itm:name>
+			<itm:description>It's a key. Keys unlock things. Didn't you know?</itm:description>
+		</itm:item>
+	</itm:items>
+</mdl:model>

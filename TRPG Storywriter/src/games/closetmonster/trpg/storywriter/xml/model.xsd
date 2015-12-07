@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.closetmonster.games/trpg/storywriter/xml/model"
+	xmlns:mdl="http://www.closetmonster.games/trpg/storywriter/xml/model"
+	xmlns:loc="http://www.closetmonster.games/trpg/storywriter/xml/locations"
+	xmlns:rte="http://www.closetmonster.games/trpg/storywriter/xml/routes"
+	xmlns:itm="http://www.closetmonster.games/trpg/storywriter/xml/items"
+	elementFormDefault="qualified">
+
+	<xsd:import schemaLocation="locations.xsd"
+		namespace="http://www.closetmonster.games/trpg/storywriter/xml/locations" />
+	<xsd:import schemaLocation="routes.xsd"
+		namespace="http://www.closetmonster.games/trpg/storywriter/xml/routes" />
+	<xsd:import schemaLocation="items.xsd"
+		namespace="http://www.closetmonster.games/trpg/storywriter/xml/items" />
+
+	<xsd:element name="model" type="mdl:modelType" />
+
+	<xsd:complexType name="modelType">
+		<xsd:sequence>
+			<xsd:element ref="loc:locations" />
+			<xsd:element ref="rte:routes" />
+			<xsd:element ref="itm:items" />
+		</xsd:sequence>
+	</xsd:complexType>
+
+</xsd:schema>
