@@ -6,7 +6,6 @@ package games.closetmonster.trpg.storywriter;
 import java.util.Locale;
 
 import games.closetmonster.trpg.storywriter.i18n.Messages;
-import games.closetmonster.trpg.storywriter.model.Modellable;
 import games.closetmonster.trpg.storywriter.xml.XMLBinder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,7 +1,7 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter.model;
+package games.closetmonster.trpg.storywriter;
 
 import games.closetmonster.trpg.storywriter.xml.items.ItemsType;
 import games.closetmonster.trpg.storywriter.xml.locations.LocationsType;
@@ -19,25 +19,25 @@ import javafx.collections.ObservableList;
  */
 public class Model implements Modellable {
 
+	private ListProperty<Item> items = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ListProperty<Location> locations = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ListProperty<Route> routes = new SimpleListProperty<>(FXCollections.observableArrayList());
-	private ListProperty<Item> items = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private final ModelType modelType;
 
 	public Model() {
 		modelType = new ModelType();
+		modelType.setItems(new ItemsType());
 		modelType.setLocations(new LocationsType());
 		modelType.setRoutes(new RoutesType());
-		modelType.setItems(new ItemsType());
 		resetNextIds();
 		bind();
 	}
 
 	public Model(ModelType modelType) {
 		this.modelType = modelType;
+		modelType.getItems().getItem().forEach(e -> items.add(new Item(e)));
 		modelType.getLocations().getLocation().forEach(e -> locations.add(new Location(e)));
 		modelType.getRoutes().getRoute().forEach(e -> routes.add(new Route(e)));
-		modelType.getItems().getItem().forEach(e -> items.add(new Item(e)));
 		resetNextIds();
 		bind();
 	}
@@ -92,15 +92,15 @@ public class Model implements Modellable {
 	}
 
 	private void bind() {
+		items.addListener(new ItemsChangeListener());
 		locations.addListener(new LocationsChangeListener());
 		routes.addListener(new RoutesChangeListener());
-		items.addListener(new ItemsChangeListener());
 	}
 
 	private void resetNextIds() {
+		Item.resetNextId();
 		Location.resetNextId();
 		Route.resetNextId();
-		Item.resetNextId();
 	}
 
 	private class LocationsChangeListener implements ListChangeListener<Location> {

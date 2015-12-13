@@ -1,7 +1,7 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter.model;
+package games.closetmonster.trpg.storywriter;
 
 /**
  * @author Jonathan Radliff

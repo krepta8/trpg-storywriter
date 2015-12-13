@@ -1,7 +1,7 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter.model;
+package games.closetmonster.trpg.storywriter;
 
 import games.closetmonster.trpg.storywriter.xml.XMLBinder;
 import games.closetmonster.trpg.storywriter.xml.locations.LocationType;
@@ -50,7 +50,7 @@ public class Location {
 		setDescription(locationType.getDescription());
 		setItems(FXCollections.observableArrayList(XMLBinder.lookupItems(locationType.getItems())));
 		// Overwrite item idrefs with ItemType objects that have getId() method.
-		locationType.getItems().replaceAll(idref -> XMLBinder.lookupItemType(idref));
+//		locationType.getItems().replaceAll(idref -> XMLBinder.lookupItemType(idref));
 		bind();
 	}
 

@@ -10,10 +10,6 @@ import java.util.ResourceBundle;
 
 import games.closetmonster.javafx.view.Dialogs;
 import games.closetmonster.trpg.storywriter.i18n.Messages;
-import games.closetmonster.trpg.storywriter.model.Item;
-import games.closetmonster.trpg.storywriter.model.Location;
-import games.closetmonster.trpg.storywriter.model.Modellable;
-import games.closetmonster.trpg.storywriter.model.Route;
 import games.closetmonster.trpg.storywriter.xml.XMLBinder;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;

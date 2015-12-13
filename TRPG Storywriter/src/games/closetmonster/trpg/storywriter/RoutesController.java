@@ -8,11 +8,6 @@ import java.util.ResourceBundle;
 
 import games.closetmonster.javafx.view.Dialogs;
 import games.closetmonster.trpg.storywriter.i18n.Messages;
-import games.closetmonster.trpg.storywriter.model.Direction;
-import games.closetmonster.trpg.storywriter.model.Item;
-import games.closetmonster.trpg.storywriter.model.Location;
-import games.closetmonster.trpg.storywriter.model.Modellable;
-import games.closetmonster.trpg.storywriter.model.Route;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -161,12 +156,16 @@ public class RoutesController implements Initializable {
 
 	@FXML
 	private void onActionFromLocation(ActionEvent event) {
-		currentRoute.get().setFromLocation(fromLocationComboBox.getSelectionModel().getSelectedItem());
+		if (currentRoute.get() != null) {
+			currentRoute.get().setFromLocation(fromLocationComboBox.getSelectionModel().getSelectedItem());
+		}
 	}
 
 	@FXML
 	private void onActionDirection(ActionEvent event) {
-		currentRoute.get().setDirection(directionComboBox.getSelectionModel().getSelectedItem());
+		if (currentRoute.get() != null) {
+			currentRoute.get().setDirection(directionComboBox.getSelectionModel().getSelectedItem());
+		}
 	}
 
 	@FXML
@@ -176,22 +175,30 @@ public class RoutesController implements Initializable {
 
 	@FXML
 	private void onActionToLocation(ActionEvent event) {
-		currentRoute.get().setToLocation(toLocationComboBox.getSelectionModel().getSelectedItem());
+		if (currentRoute.get() != null) {
+			currentRoute.get().setToLocation(toLocationComboBox.getSelectionModel().getSelectedItem());
+		}
 	}
 
 	@FXML
 	private void onActionLocked(ActionEvent event) {
-		currentRoute.get().setLocked(lockedCheckBox.isSelected());
+		if (currentRoute.get() != null) {
+			currentRoute.get().setLocked(lockedCheckBox.isSelected());
+		}
 	}
 
 	@FXML
 	private void onActionRequiredItem(ActionEvent event) {
-		currentRoute.get().setRequiredItem(requiredItemComboBox.getSelectionModel().getSelectedItem());
+		if (currentRoute.get() != null) {
+			currentRoute.get().setRequiredItem(requiredItemComboBox.getSelectionModel().getSelectedItem());
+		}
 	}
 
 	@FXML
 	private void onActionItemConsumed(ActionEvent event) {
-		currentRoute.get().setItemConsumed(itemConsumedCheckBox.isSelected());
+		if (currentRoute.get() != null) {
+			currentRoute.get().setItemConsumed(itemConsumedCheckBox.isSelected());
+		}
 	}
 
 	private class RouteCell extends ListCell<Route> {

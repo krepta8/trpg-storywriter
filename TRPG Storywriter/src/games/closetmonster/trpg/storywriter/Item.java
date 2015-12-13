@@ -1,7 +1,7 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter.model;
+package games.closetmonster.trpg.storywriter;
 
 import games.closetmonster.trpg.storywriter.xml.XMLBinder;
 import games.closetmonster.trpg.storywriter.xml.items.ItemType;

@@ -1,7 +1,7 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter.model;
+package games.closetmonster.trpg.storywriter;
 
 import games.closetmonster.trpg.storywriter.xml.XMLBinder;
 import games.closetmonster.trpg.storywriter.xml.routes.DirectionType;
@@ -53,17 +53,17 @@ public class Route {
 		setId(XMLBinder.parseId(routeType.getId(), XMLBinder.ROUTE_ID_PREFIX));
 		setFromLocation(XMLBinder.lookupLocation(routeType.getFromLocationId()));
 		// Overwrite location idref with LocationType object that has getId() method.
-		routeType.setFromLocationId(XMLBinder.lookupLocationType(routeType.getFromLocationId()));
+//		routeType.setFromLocationId(XMLBinder.lookupLocationType(routeType.getFromLocationId()));
 		setToLocation(XMLBinder.lookupLocation(routeType.getToLocationId()));
 		// Overwrite location idref with LocationType object that has getId() method.
-		routeType.setToLocationId(XMLBinder.lookupLocationType(routeType.getToLocationId()));
+//		routeType.setToLocationId(XMLBinder.lookupLocationType(routeType.getToLocationId()));
 		setDirection(Direction.valueOf(routeType.getDirection().name()));
 		// Optional element.
 		if (routeType.getLock() != null) {
 			setLocked(routeType.getLock().isLocked());
 			setRequiredItem(XMLBinder.lookupItem(routeType.getLock().getRequiredItem().getItemId()));
 			// Overwrite item idref with ItemType object that has getId() method.
-			routeType.getLock().getRequiredItem().setItemId(XMLBinder.lookupItemType(routeType.getLock().getRequiredItem().getItemId()));
+//			routeType.getLock().getRequiredItem().setItemId(XMLBinder.lookupItemType(routeType.getLock().getRequiredItem().getItemId()));
 			setItemConsumed(routeType.getLock().getRequiredItem().isItemConsumed());
 		}
 		bind();

@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import games.closetmonster.jaxb.JAXBParser;
-import games.closetmonster.trpg.storywriter.model.Item;
-import games.closetmonster.trpg.storywriter.model.Location;
-import games.closetmonster.trpg.storywriter.model.Model;
-import games.closetmonster.trpg.storywriter.model.Modellable;
+import games.closetmonster.trpg.storywriter.Item;
+import games.closetmonster.trpg.storywriter.Location;
+import games.closetmonster.trpg.storywriter.Model;
+import games.closetmonster.trpg.storywriter.Modellable;
 import games.closetmonster.trpg.storywriter.xml.items.ItemType;
 import games.closetmonster.trpg.storywriter.xml.locations.LocationType;
 import games.closetmonster.trpg.storywriter.xml.model.ModelType;
@@ -65,6 +65,8 @@ public class XMLBinder {
 	}
 
 	private static void setModelType(ModelType modelType) {
+		// FIXME Constructor for Model indirectly references model property in
+		// XMLBinder before it is assigned, causing a race condition.
 		XMLBinder.model = new Model(modelType);
 	}
 
@@ -83,6 +85,8 @@ public class XMLBinder {
 	}
 
 	public static List<Item> lookupItems(List<Object> idrefs) {
+		System.out.println("XMLBinder.lookupItems: " + idrefs.toString());
+		System.out.println(idrefs.stream().map(XMLBinder::lookupItem).collect(Collectors.toList()).toString());
 		return idrefs.stream().map(XMLBinder::lookupItem).collect(Collectors.toList());
 	}
 
