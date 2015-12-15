@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.closetmonster.games/trpg/storywriter/xml/items"
-	xmlns:itm="http://www.closetmonster.games/trpg/storywriter/xml/items"
+	targetNamespace="http://www.closetmonster.games/trpg/storywriter/model/xml/items"
+	xmlns:itm="http://www.closetmonster.games/trpg/storywriter/model/xml/items"
 	elementFormDefault="qualified">
 
 	<xsd:element name="items" type="itm:itemsType" />
 
 	<xsd:complexType name="itemsType">
 		<xsd:sequence>
-			<xsd:element name="item" type="itm:itemType" maxOccurs='2147483647' />
+			<xsd:element name="item" type="itm:itemType" minOccurs="0"
+				maxOccurs='2147483647' />
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="itemType">
 		<xsd:sequence>
-			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="description" type="xsd:normalizedString" />
+			<xsd:element name="name" type="xsd:token" />
+			<xsd:element name="description" type="xsd:token" />
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:ID" use="required" />
 	</xsd:complexType>

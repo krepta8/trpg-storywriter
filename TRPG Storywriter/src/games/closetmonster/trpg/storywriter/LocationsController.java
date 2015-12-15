@@ -8,6 +8,9 @@ import java.util.ResourceBundle;
 
 import games.closetmonster.javafx.view.Dialogs;
 import games.closetmonster.trpg.storywriter.i18n.Messages;
+import games.closetmonster.trpg.storywriter.model.Item;
+import games.closetmonster.trpg.storywriter.model.Location;
+import games.closetmonster.trpg.storywriter.model.Modellable;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

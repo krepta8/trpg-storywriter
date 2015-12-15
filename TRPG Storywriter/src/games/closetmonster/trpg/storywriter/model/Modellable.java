@@ -1,7 +1,7 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter;
+package games.closetmonster.trpg.storywriter.model;
 
 import javafx.beans.property.ListProperty;
 import javafx.collections.ObservableList;

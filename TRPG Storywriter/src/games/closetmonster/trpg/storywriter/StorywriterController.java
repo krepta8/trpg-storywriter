@@ -10,7 +10,11 @@ import java.util.ResourceBundle;
 
 import games.closetmonster.javafx.view.Dialogs;
 import games.closetmonster.trpg.storywriter.i18n.Messages;
-import games.closetmonster.trpg.storywriter.xml.XMLBinder;
+import games.closetmonster.trpg.storywriter.model.Item;
+import games.closetmonster.trpg.storywriter.model.Location;
+import games.closetmonster.trpg.storywriter.model.Modellable;
+import games.closetmonster.trpg.storywriter.model.Route;
+import games.closetmonster.trpg.storywriter.model.xml.XMLBinder;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -147,7 +151,7 @@ public class StorywriterController implements Initializable {
 	@FXML
 	private void newFile() {
 		if (showConfirmOpenDialog()) {
-			XMLBinder.newModel();
+			XMLBinder.newWorld();
 			app.restart();
 		}
 	}

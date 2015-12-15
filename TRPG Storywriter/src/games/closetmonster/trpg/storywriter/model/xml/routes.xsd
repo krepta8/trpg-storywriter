@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.closetmonster.games/trpg/storywriter/xml/routes"
-	xmlns:rte="http://www.closetmonster.games/trpg/storywriter/xml/routes"
+	targetNamespace="http://www.closetmonster.games/trpg/storywriter/model/xml/routes"
+	xmlns:rte="http://www.closetmonster.games/trpg/storywriter/model/xml/routes"
 	elementFormDefault="qualified">
 
 	<xsd:element name="routes" type="rte:routesType" />
 
 	<xsd:complexType name="routesType">
 		<xsd:sequence>
-			<xsd:element name="route" type="rte:routeType" maxOccurs='2147483647' />
+			<xsd:element name="route" type="rte:routeType" minOccurs="0"
+				maxOccurs='2147483647' />
 		</xsd:sequence>
 	</xsd:complexType>
 

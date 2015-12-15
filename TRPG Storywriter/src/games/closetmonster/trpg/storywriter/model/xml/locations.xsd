@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.closetmonster.games/trpg/storywriter/xml/locations"
-	xmlns:loc="http://www.closetmonster.games/trpg/storywriter/xml/locations"
+	targetNamespace="http://www.closetmonster.games/trpg/storywriter/model/xml/locations"
+	xmlns:loc="http://www.closetmonster.games/trpg/storywriter/model/xml/locations"
 	elementFormDefault="qualified">
 
 	<xsd:element name="locations" type="loc:locationsType" />
@@ -9,15 +9,15 @@
 	<xsd:complexType name="locationsType">
 		<xsd:sequence>
 			<xsd:element name="location" type="loc:locationType"
-				maxOccurs='2147483647' />
+				minOccurs="0" maxOccurs='2147483647' />
 		</xsd:sequence>
 	</xsd:complexType>
 
 	<xsd:complexType name="locationType">
 		<xsd:sequence>
-			<xsd:element name="name" type="xsd:string" />
-			<xsd:element name="description" type="xsd:normalizedString" />
-			<xsd:element name="items" type="xsd:IDREFS" minOccurs='0' />
+			<xsd:element name="name" type="xsd:token" />
+			<xsd:element name="description" type="xsd:token" />
+			<xsd:element name="items" type="xsd:IDREFS" minOccurs="0" />
 		</xsd:sequence>
 		<xsd:attribute name="id" type="xsd:ID" use="required" />
 	</xsd:complexType>

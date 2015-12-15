@@ -1,19 +1,20 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter.xml;
+package games.closetmonster.trpg.storywriter.model.xml;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 import games.closetmonster.jaxb.JAXBParser;
-import games.closetmonster.trpg.storywriter.Item;
-import games.closetmonster.trpg.storywriter.Location;
-import games.closetmonster.trpg.storywriter.Model;
-import games.closetmonster.trpg.storywriter.Modellable;
-import games.closetmonster.trpg.storywriter.xml.items.ItemType;
-import games.closetmonster.trpg.storywriter.xml.locations.LocationType;
-import games.closetmonster.trpg.storywriter.xml.model.ModelType;
+import games.closetmonster.trpg.storywriter.model.Item;
+import games.closetmonster.trpg.storywriter.model.Location;
+import games.closetmonster.trpg.storywriter.model.Modellable;
+import games.closetmonster.trpg.storywriter.model.Route;
+import games.closetmonster.trpg.storywriter.model.World;
+import games.closetmonster.trpg.storywriter.model.xml.items.ItemType;
+import games.closetmonster.trpg.storywriter.model.xml.locations.LocationType;
+import games.closetmonster.trpg.storywriter.model.xml.world.WorldType;
 
 /**
  * @author Jonathan Radliff
@@ -21,20 +22,16 @@ import games.closetmonster.trpg.storywriter.xml.model.ModelType;
  */
 public class XMLBinder {
 
+	public static final String ITEM_ID_PREFIX = "item-";
 	public static final String LOCATION_ID_PREFIX = "location-";
 	public static final String ROUTE_ID_PREFIX = "route-";
-	public static final String ITEM_ID_PREFIX = "item-";
 	public static final String XML_DIRECTORY = "resources/data/xml/";
 	public static final String XML_FILENAME = "test.xml";
-	public static final String XSD_PATHNAME = "src/games/closetmonster/trpg/storywriter/xml/model.xsd";
-	private static Model model = new Model();
+	public static final String XSD_PATHNAME = "src/games/closetmonster/trpg/storywriter/model/xml/world.xsd";
+	private static World world = new World();
 
-	public static Modellable getModel() {
-		return model;
-	}
-
-	public static ModelType getModelType() {
-		return model.getModelType();
+	public static Modellable getWorld() {
+		return world;
 	}
 
 	public static boolean load() {
@@ -43,17 +40,24 @@ public class XMLBinder {
 
 	public static boolean load(String fileName) {
 		boolean success = false;
-		ModelType modelType = JAXBParser.unmarshal(XML_DIRECTORY + fileName, XSD_PATHNAME, ModelType.class);
+		WorldType worldType = JAXBParser.unmarshal(XML_DIRECTORY + fileName, XSD_PATHNAME, WorldType.class);
 		// TODO Need to add real checks that model is valid before assigning.
-		if (modelType != null) {
-			setModelType(modelType);
+		if (worldType != null) {
+			newWorld(worldType);
 			success = true;
 		}
 		return success;
 	}
 
-	public static void newModel() {
-		XMLBinder.model = new Model();
+	public static void newWorld() {
+		XMLBinder.world = new World();
+	}
+
+	private static void newWorld(WorldType worldType) {
+		XMLBinder.world = new World();
+		worldType.getItems().getItem().forEach(e -> world.getItems().add(new Item(e)));
+		worldType.getLocations().getLocation().forEach(e -> world.getLocations().add(new Location(e)));
+		worldType.getRoutes().getRoute().forEach(e -> world.getRoutes().add(new Route(e)));
 	}
 
 	public static boolean save() {
@@ -61,21 +65,16 @@ public class XMLBinder {
 	}
 
 	public static boolean save(String fileName) {
-		return JAXBParser.marshal(XML_DIRECTORY + fileName, XSD_PATHNAME, model.getModelType());
-	}
-
-	private static void setModelType(ModelType modelType) {
-		// FIXME Constructor for Model indirectly references model property in
-		// XMLBinder before it is assigned, causing a race condition.
-		XMLBinder.model = new Model(modelType);
+		return JAXBParser.marshal(XML_DIRECTORY + fileName, XSD_PATHNAME, world.getWorldType());
 	}
 
 	public static Item lookupItem(Object idref) {
 		Item foundItem = null;
-		if (idref != null) {
-			int itemId = parseId(idref, ITEM_ID_PREFIX);
+		if (idref instanceof ItemType) {
+			ItemType itemType = (ItemType) idref;
+			int itemId = parseId(itemType.getId(), ITEM_ID_PREFIX);
 			if (itemId > -1) {
-				List<Item> list = model.getItems().filtered(item -> item.getId() == itemId);
+				List<Item> list = world.getItems().filtered(item -> item.getId() == itemId);
 				if (!list.isEmpty()) {
 					foundItem = list.get(0);
 				}
@@ -85,51 +84,22 @@ public class XMLBinder {
 	}
 
 	public static List<Item> lookupItems(List<Object> idrefs) {
-		System.out.println("XMLBinder.lookupItems: " + idrefs.toString());
-		System.out.println(idrefs.stream().map(XMLBinder::lookupItem).collect(Collectors.toList()).toString());
 		return idrefs.stream().map(XMLBinder::lookupItem).collect(Collectors.toList());
-	}
-
-	public static ItemType lookupItemType(Object idref) {
-		ItemType foundItemType = null;
-		if (idref != null) {
-			List<ItemType> list = model.getModelType().getItems().getItem().stream()
-					.filter(itemType -> itemType.getId().equals(idref)).collect(Collectors.toList());
-			if (!list.isEmpty()) {
-				foundItemType = list.get(0);
-			}
-		}
-		return foundItemType;
-	}
-
-	public static List<ItemType> lookupItemTypes(List<Object> idrefs) {
-		return idrefs.stream().map(XMLBinder::lookupItemType).collect(Collectors.toList());
 	}
 
 	public static Location lookupLocation(Object idref) {
 		Location foundLocation = null;
-		if (idref != null) {
-			int locationId = parseId(idref, LOCATION_ID_PREFIX);
+		if (idref instanceof LocationType) {
+			LocationType locationType = (LocationType) idref;
+			int locationId = parseId(locationType.getId(), LOCATION_ID_PREFIX);
 			if (locationId > -1) {
-				List<Location> list = model.getLocations().filtered(location -> location.getId() == locationId);
+				List<Location> list = world.getLocations().filtered(location -> location.getId() == locationId);
 				if (!list.isEmpty()) {
 					foundLocation = list.get(0);
 				}
 			}
 		}
 		return foundLocation;
-	}
-
-	public static LocationType lookupLocationType(Object idref) {
-		LocationType foundLocationType = null;
-		if (idref != null) {
-			List<LocationType> list = model.getModelType().getLocations().getLocation().stream()
-					.filter(locationType -> locationType.getId().equals(idref)).collect(Collectors.toList());
-			if (!list.isEmpty()) {
-				foundLocationType = list.get(0);
-			}
-		}
-		return foundLocationType;
 	}
 
 	public static int parseId(Object idref, String idPrefix) {

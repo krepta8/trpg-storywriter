@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-	targetNamespace="http://www.closetmonster.games/trpg/storywriter/xml/model"
-	xmlns:mdl="http://www.closetmonster.games/trpg/storywriter/xml/model"
-	xmlns:loc="http://www.closetmonster.games/trpg/storywriter/xml/locations"
-	xmlns:rte="http://www.closetmonster.games/trpg/storywriter/xml/routes"
-	xmlns:itm="http://www.closetmonster.games/trpg/storywriter/xml/items"
+	targetNamespace="http://www.closetmonster.games/trpg/storywriter/model/xml/world"
+	xmlns:wld="http://www.closetmonster.games/trpg/storywriter/model/xml/world"
+	xmlns:loc="http://www.closetmonster.games/trpg/storywriter/model/xml/locations"
+	xmlns:rte="http://www.closetmonster.games/trpg/storywriter/model/xml/routes"
+	xmlns:itm="http://www.closetmonster.games/trpg/storywriter/model/xml/items"
 	elementFormDefault="qualified">
 
 	<xsd:import schemaLocation="locations.xsd"
-		namespace="http://www.closetmonster.games/trpg/storywriter/xml/locations" />
+		namespace="http://www.closetmonster.games/trpg/storywriter/model/xml/locations" />
 	<xsd:import schemaLocation="routes.xsd"
-		namespace="http://www.closetmonster.games/trpg/storywriter/xml/routes" />
+		namespace="http://www.closetmonster.games/trpg/storywriter/model/xml/routes" />
 	<xsd:import schemaLocation="items.xsd"
-		namespace="http://www.closetmonster.games/trpg/storywriter/xml/items" />
+		namespace="http://www.closetmonster.games/trpg/storywriter/model/xml/items" />
 
-	<xsd:element name="model" type="mdl:modelType" />
+	<xsd:element name="world" type="wld:worldType" />
 
-	<xsd:complexType name="modelType">
+	<xsd:complexType name="worldType">
 		<xsd:sequence>
 			<xsd:element ref="loc:locations" />
 			<xsd:element ref="rte:routes" />

@@ -6,7 +6,8 @@ package games.closetmonster.trpg.storywriter;
 import java.util.Locale;
 
 import games.closetmonster.trpg.storywriter.i18n.Messages;
-import games.closetmonster.trpg.storywriter.xml.XMLBinder;
+import games.closetmonster.trpg.storywriter.model.Modellable;
+import games.closetmonster.trpg.storywriter.model.xml.XMLBinder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -66,7 +67,7 @@ public class Storywriter extends Application {
 	private Stage primaryStage;
 
 	public Storywriter() {
-		this.model = XMLBinder.getModel();
+		this.model = XMLBinder.getWorld();
 		this.controller = new StorywriterController(this, model);
 	}
 
@@ -86,7 +87,7 @@ public class Storywriter extends Application {
 	}
 
 	public void restart() {
-		this.model = XMLBinder.getModel();
+		this.model = XMLBinder.getWorld();
 		this.controller = new StorywriterController(this, model);
 		start(primaryStage);
 	}

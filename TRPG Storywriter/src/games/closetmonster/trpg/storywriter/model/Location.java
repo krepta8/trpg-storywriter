@@ -1,10 +1,10 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter;
+package games.closetmonster.trpg.storywriter.model;
 
-import games.closetmonster.trpg.storywriter.xml.XMLBinder;
-import games.closetmonster.trpg.storywriter.xml.locations.LocationType;
+import games.closetmonster.trpg.storywriter.model.xml.XMLBinder;
+import games.closetmonster.trpg.storywriter.model.xml.locations.LocationType;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
@@ -49,8 +49,9 @@ public class Location {
 		setName(locationType.getName());
 		setDescription(locationType.getDescription());
 		setItems(FXCollections.observableArrayList(XMLBinder.lookupItems(locationType.getItems())));
-		// Overwrite item idrefs with ItemType objects that have getId() method.
-//		locationType.getItems().replaceAll(idref -> XMLBinder.lookupItemType(idref));
+		if (locationType.getItems().isEmpty()) {
+			locationType.setItems(null);
+		}
 		bind();
 	}
 
@@ -114,6 +115,9 @@ public class Location {
 			while (change.next()) {
 				change.getRemoved().stream().map(item -> item.getItemType()).forEach(locationType.getItems()::remove);
 				change.getAddedSubList().stream().map(item -> item.getItemType()).forEach(locationType.getItems()::add);
+			}
+			if (locationType.getItems().isEmpty()) {
+				locationType.setItems(null);
 			}
 		});
 		// TODO Test listener. Delete this when done.

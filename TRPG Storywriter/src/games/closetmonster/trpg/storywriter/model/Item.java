@@ -1,10 +1,10 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter;
+package games.closetmonster.trpg.storywriter.model;
 
-import games.closetmonster.trpg.storywriter.xml.XMLBinder;
-import games.closetmonster.trpg.storywriter.xml.items.ItemType;
+import games.closetmonster.trpg.storywriter.model.xml.XMLBinder;
+import games.closetmonster.trpg.storywriter.model.xml.items.ItemType;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

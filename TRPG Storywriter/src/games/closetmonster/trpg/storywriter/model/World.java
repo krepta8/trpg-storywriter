@@ -1,12 +1,12 @@
 /**
  *
  */
-package games.closetmonster.trpg.storywriter;
+package games.closetmonster.trpg.storywriter.model;
 
-import games.closetmonster.trpg.storywriter.xml.items.ItemsType;
-import games.closetmonster.trpg.storywriter.xml.locations.LocationsType;
-import games.closetmonster.trpg.storywriter.xml.model.ModelType;
-import games.closetmonster.trpg.storywriter.xml.routes.RoutesType;
+import games.closetmonster.trpg.storywriter.model.xml.items.ItemsType;
+import games.closetmonster.trpg.storywriter.model.xml.locations.LocationsType;
+import games.closetmonster.trpg.storywriter.model.xml.routes.RoutesType;
+import games.closetmonster.trpg.storywriter.model.xml.world.WorldType;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -17,33 +17,24 @@ import javafx.collections.ObservableList;
  * @author Jonathan Radliff
  *
  */
-public class Model implements Modellable {
+public class World implements Modellable {
 
-	private ListProperty<Item> items = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ListProperty<Location> locations = new SimpleListProperty<>(FXCollections.observableArrayList());
 	private ListProperty<Route> routes = new SimpleListProperty<>(FXCollections.observableArrayList());
-	private final ModelType modelType;
+	private ListProperty<Item> items = new SimpleListProperty<>(FXCollections.observableArrayList());
+	private final WorldType worldType;
 
-	public Model() {
-		modelType = new ModelType();
-		modelType.setItems(new ItemsType());
-		modelType.setLocations(new LocationsType());
-		modelType.setRoutes(new RoutesType());
+	public World() {
+		worldType = new WorldType();
+		worldType.setLocations(new LocationsType());
+		worldType.setRoutes(new RoutesType());
+		worldType.setItems(new ItemsType());
 		resetNextIds();
 		bind();
 	}
 
-	public Model(ModelType modelType) {
-		this.modelType = modelType;
-		modelType.getItems().getItem().forEach(e -> items.add(new Item(e)));
-		modelType.getLocations().getLocation().forEach(e -> locations.add(new Location(e)));
-		modelType.getRoutes().getRoute().forEach(e -> routes.add(new Route(e)));
-		resetNextIds();
-		bind();
-	}
-
-	public ModelType getModelType() {
-		return modelType;
+	public WorldType getWorldType() {
+		return worldType;
 	}
 
 	@Override
@@ -92,15 +83,15 @@ public class Model implements Modellable {
 	}
 
 	private void bind() {
-		items.addListener(new ItemsChangeListener());
 		locations.addListener(new LocationsChangeListener());
 		routes.addListener(new RoutesChangeListener());
+		items.addListener(new ItemsChangeListener());
 	}
 
 	private void resetNextIds() {
-		Item.resetNextId();
 		Location.resetNextId();
 		Route.resetNextId();
+		Item.resetNextId();
 	}
 
 	private class LocationsChangeListener implements ListChangeListener<Location> {
@@ -116,13 +107,13 @@ public class Model implements Modellable {
 					System.out.println("LocationsChangeListener: Location was updated.");
 				} else {
 					for (Location location : change.getRemoved()) {
-						modelType.getLocations().getLocation().remove(location.getLocationType());
-						System.out.println("LocationsChangeListener: LocationType was removed from ModelType. ID: "
+						worldType.getLocations().getLocation().remove(location.getLocationType());
+						System.out.println("LocationsChangeListener: LocationType was removed from WorldType. ID: "
 								+ location.getLocationType().getId());
 					}
 					for (Location location : change.getAddedSubList()) {
-						modelType.getLocations().getLocation().add(location.getLocationType());
-						System.out.println("LocationsChangeListener: LocationType was added to ModelType. ID: "
+						worldType.getLocations().getLocation().add(location.getLocationType());
+						System.out.println("LocationsChangeListener: LocationType was added to WorldType. ID: "
 								+ location.getLocationType().getId());
 					}
 				}
@@ -144,13 +135,13 @@ public class Model implements Modellable {
 					System.out.println("RoutesChangeListener: Route was updated.");
 				} else {
 					for (Route route : change.getRemoved()) {
-						modelType.getRoutes().getRoute().remove(route.getRouteType());
-						System.out.println("RoutesChangeListener: RouteType was removed from ModelType. ID: "
+						worldType.getRoutes().getRoute().remove(route.getRouteType());
+						System.out.println("RoutesChangeListener: RouteType was removed from WorldType. ID: "
 								+ route.getRouteType().getId());
 					}
 					for (Route route : change.getAddedSubList()) {
-						modelType.getRoutes().getRoute().add(route.getRouteType());
-						System.out.println("RoutesChangeListener: RouteType was added to ModelType. ID: "
+						worldType.getRoutes().getRoute().add(route.getRouteType());
+						System.out.println("RoutesChangeListener: RouteType was added to WorldType. ID: "
 								+ route.getRouteType().getId());
 					}
 				}
@@ -172,13 +163,13 @@ public class Model implements Modellable {
 					System.out.println("ItemsChangeListener: Item was updated.");
 				} else {
 					for (Item item : change.getRemoved()) {
-						modelType.getItems().getItem().remove(item.getItemType());
-						System.out.println("ItemsChangeListener: ItemType was removed from ModelType. ID: "
+						worldType.getItems().getItem().remove(item.getItemType());
+						System.out.println("ItemsChangeListener: ItemType was removed from WorldType. ID: "
 								+ item.getItemType().getId());
 					}
 					for (Item item : change.getAddedSubList()) {
-						modelType.getItems().getItem().add(item.getItemType());
-						System.out.println("ItemsChangeListener: ItemType was added to ModelType. ID: "
+						worldType.getItems().getItem().add(item.getItemType());
+						System.out.println("ItemsChangeListener: ItemType was added to WorldType. ID: "
 								+ item.getItemType().getId());
 					}
 				}
